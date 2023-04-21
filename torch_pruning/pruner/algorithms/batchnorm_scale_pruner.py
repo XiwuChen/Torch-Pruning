@@ -23,6 +23,7 @@ class BNScalePruner(MetaPruner):
         customized_pruners=None,
         unwrapped_parameters=None,
         output_transform=None,
+        forward_fn=None,
     ):
         super(BNScalePruner, self).__init__(
             model=model,
@@ -39,6 +40,7 @@ class BNScalePruner(MetaPruner):
             customized_pruners=customized_pruners,
             unwrapped_parameters=unwrapped_parameters,
             output_transform=output_transform,
+            forward_fn=forward_fn,
         )
         self.reg = reg
 

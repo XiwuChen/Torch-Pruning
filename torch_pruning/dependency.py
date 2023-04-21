@@ -355,6 +355,7 @@ class DependencyGraph(object):
         if unwrapped_parameters is None:
             unwrapped_parameters = []
         self._param_to_name = _param_to_name
+        # import ipdb; ipdb.set_trace()
         unwrapped_detected = list( set(unwrapped_detected) - set([p for (p, _) in unwrapped_parameters]) )
         if len(unwrapped_detected)>0 and self.verbose:
             warnings.warn("Unwrapped parameters detected: {}.\n Torch-Pruning will prune the last non-singleton dimension of a parameter. If you wish to customize this behavior, please provide an unwrapped_parameters argument.".format([_param_to_name[p] for p in unwrapped_detected]))
@@ -805,9 +806,19 @@ class DependencyGraph(object):
                         processing_stack.append(f[0])
             visited.add(grad_fn)
             visited_as_output_node.add(node)
-        
+
         for (param, dim) in self.unwrapped_parameters:
+            # try:
+            if param not in module2node:
+                for n, p in self.model.named_parameters():
+                    if p is param:
+                        print(f"param: {n} is not in module2node")
+                continue
             module2node[param].pruning_dim = dim
+            # except:
+            #     for n, p in self.model.named_parameters():
+            #         if p is param:
+            #             print(n)
         return module2node
 
     def update_index_mapping(self):

@@ -27,6 +27,7 @@ class GroupNormPruner(MetaPruner):
         customized_pruners=None,
         unwrapped_parameters=None,
         output_transform=None,
+        forward_fn=None,
     ):
         super(GroupNormPruner, self).__init__(
             model=model,
@@ -44,6 +45,7 @@ class GroupNormPruner(MetaPruner):
             customized_pruners=customized_pruners,
             unwrapped_parameters=unwrapped_parameters,
             output_transform=output_transform,
+            forward_fn=forward_fn,
         )
         self.reg = reg
         self.alpha = alpha

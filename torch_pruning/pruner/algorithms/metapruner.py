@@ -57,6 +57,7 @@ class MetaPruner:
         root_module_types: typing.List = [
             ops.TORCH_CONV, ops.TORCH_LINEAR, ops.TORCH_LSTM],  # root module for each group
         output_transform: typing.Callable = None,
+        forward_fn=None,
     ):
         self.model = model
         self.importance = importance
@@ -76,6 +77,7 @@ class MetaPruner:
             output_transform=output_transform,
             unwrapped_parameters=unwrapped_parameters,
             customized_pruners=customized_pruners,
+            forward_fn=forward_fn,
         )
 
         self.ignored_layers = []

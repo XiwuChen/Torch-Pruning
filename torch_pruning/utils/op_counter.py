@@ -416,7 +416,10 @@ def batch_counter_hook(module, input, output):
     if len(input) > 0:
         # Can have multiple inputs, getting the first one
         input = input[0]
-        batch_size = len(input)
+        if isinstance(input, dict):
+            batch_size = len(input["points"])
+        else:
+            batch_size = len(input)
     else:
         pass
         print('Warning! No positional inputs found for a module,'
